@@ -1,0 +1,731 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="متجر هواتف سامسونج في مصر بأسعار تنافسية وضمان حقيقي">
+<title>Hossam Samsung — Premium Store</title>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;800;900&family=Tajawal:wght@300;400;500;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+<style>
+:root{
+  --accent:#00b7ff;
+  --accent2:#00e5ff;
+  --gold:#ffd700;
+  --gold2:#ffaa00;
+  --bg:#050505;
+  --bg2:#0a0a0a;
+  --bg3:#111;
+  --card:#0e0e0e;
+  --card2:#141414;
+  --border:#1f1f1f;
+  --border2:#2a2a2a;
+  --text:#e8e8e8;
+  --text2:#a0a0a0;
+  --text3:#666;
+  --radius:24px;
+  --radius-sm:16px;
+  --shadow:0 25px 80px rgba(0,183,255,0.08);
+  --shadow2:0 10px 40px rgba(0,0,0,0.6);
+  --transition:all 0.5s cubic-bezier(0.23,1,0.32,1);
+}
+
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{
+  background:var(--bg);
+  color:var(--text);
+  font-family:'Cairo','Tajawal',sans-serif;
+  overflow-x:hidden;
+  line-height:1.7;
+}
+
+/* ===== LOADER ===== */
+.loader{
+  position:fixed;inset:0;z-index:9999;
+  background:var(--bg);
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  transition:opacity 0.8s ease,visibility 0.8s ease;
+}
+.loader.done{opacity:0;visibility:hidden;pointer-events:none;}
+.loader-ring{
+  width:80px;height:80px;border-radius:50%;
+  border:3px solid transparent;border-top-color:var(--accent);
+  animation:spin 1s linear infinite;
+  position:relative;
+}
+.loader-ring::before,.loader-ring::after{
+  content:'';position:absolute;border-radius:50%;border:3px solid transparent;
+}
+.loader-ring::before{inset:-12px;border-top-color:var(--gold);animation:spin 2s linear infinite reverse;}
+.loader-ring::after{inset:-24px;border-top-color:var(--accent2);animation:spin 3s linear infinite;}
+@keyframes spin{to{transform:rotate(360deg);}}
+.loader-text{
+  margin-top:24px;font-size:14px;letter-spacing:6px;
+  color:var(--text3);text-transform:uppercase;
+  animation:pulse 1.5s ease-in-out infinite;
+}
+@keyframes pulse{0%,100%{opacity:0.4;}50%{opacity:1;}}
+
+/* ===== NAVBAR ===== */
+.navbar{
+  position:fixed;top:0;left:0;right:0;z-index:1000;
+  padding:18px 40px;
+  display:flex;align-items:center;justify-content:space-between;
+  background:rgba(5,5,5,0.85);
+  backdrop-filter:blur(20px) saturate(180%);
+  border-bottom:1px solid rgba(255,255,255,0.04);
+  transition:var(--transition);
+}
+.navbar.scrolled{padding:12px 40px;background:rgba(5,5,5,0.95);}
+.logo{font-size:26px;font-weight:900;letter-spacing:2px;color:#fff;}
+.logo span{color:var(--accent);}
+.nav-links{display:flex;gap:32px;list-style:none;}
+.nav-links a{
+  text-decoration:none;color:var(--text2);font-size:14px;font-weight:600;
+  letter-spacing:1px;position:relative;transition:var(--transition);
+}
+.nav-links a::after{
+  content:'';position:absolute;bottom:-6px;left:0;width:0;height:2px;
+  background:linear-gradient(90deg,var(--accent),var(--gold));
+  transition:width 0.4s ease;
+}
+.nav-links a:hover{color:#fff;}
+.nav-links a:hover::after{width:100%;}
+
+/* ===== HERO ===== */
+.hero{
+  min-height:100vh;
+  display:flex;align-items:center;justify-content:center;
+  position:relative;overflow:hidden;
+  background:radial-gradient(ellipse at 20% 50%,rgba(0,183,255,0.06) 0%,transparent 50%),
+             radial-gradient(ellipse at 80% 20%,rgba(255,215,0,0.03) 0%,transparent 40%),
+             var(--bg);
+}
+.hero::before{
+  content:'';position:absolute;inset:0;
+  background:url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100"><rect fill="none" stroke="rgba(255,255,255,0.015)" stroke-width="0.5" x="0" y="0" width="100" height="100"/></svg>');
+  background-size:60px 60px;
+  pointer-events:none;
+}
+.hero-content{text-align:center;position:relative;z-index:2;padding:0 20px;}
+.hero-badge{
+  display:inline-flex;align-items:center;gap:10px;
+  padding:10px /7px;border-radius:50px;
+  background:rgba(0,183,255,0.08);border:1px solid rgba(0,183,255,0.2);
+  font-size:13px;color:var(--accent);letter-spacing:2px;margin-bottom:30px;
+  animation:fadeInDown 1s ease both;
+}
+.hero-badge i{font-size:10px;}
+.hero h1{
+  font-size:clamp(48px,8vw,100px);font-weight:900;line-height:1.05;
+  background:linear-gradient(135deg,#fff 0%,var(--accent) 50%,var(--gold) 100%);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+  background-clip:text;margin-bottom:20px;
+  animation:fadeInUp 1s ease 0.2s both;
+}
+.hero-sub{
+  font-size:clamp(16px,2vw,22px);color:var(--text2);max-width:600px;margin:0 auto 40px;
+  line-height:1.8;animation:fadeInUp 1s ease 0.4s both;
+}
+.hero-stats{
+  display:flex;gap:50px;justify-content:center;flex-wrap:wrap;
+  margin-bottom:50px;animation:fadeInUp 1s ease 0.6s both;
+}
+.stat{text-align:center;}
+.stat-num{
+  font-size:36px;font-weight:900;color:var(--accent);
+  background:linear-gradient(135deg,var(--accent),var(--gold2));
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+  background-clip:text;
+}
+.stat-label{font-size:12px;color:var(--text3);letter-spacing:2px;text-transform:uppercase;margin-top:4px;}
+.hero-cta{
+  display:inline-flex;align-items:center;gap:14px;
+  padding:18px 44px;border-radius:50px;
+  background:linear-gradient(135deg,var(--accent),var(--accent2));
+  color:#000;font-weight:800;font-size:16px;letter-spacing:1px;
+  text-decoration:none;position:relative;overflow:hidden;
+  transition:var(--transition);animation:fadeInUp 1s ease 0.8s both;
+  box-shadow:0 10px 40px rgba(0,183,255,0.3);
+}
+.hero-cta:hover{transform:translateY(-3px);box-shadow:0 20px 60px rgba(0,183,255,0.4);}
+.hero-cta::before{
+  content:'';position:absolute;inset:0;
+  background:linear-gradient(90deg,transparent,rgba(255,255,255,0.3),transparent);
+  transform:translateX(-100%);transition:0.6s;
+}
+.hero-cta:hover::before{transform:translateX(100%);}
+.hero-scroll{
+  position:absolute;bottom:40px;left:50%;transform:translateX(-50%);
+  display:flex;flex-direction:column;align-items:center;gap:8px;
+  color:var(--text3);font-size:11px;letter-spacing:3px;
+  animation:fadeIn 2s ease 1.2s both;
+}
+.hero-scroll i{font-size:18px;animation:bounce 2s infinite;}
+@keyframes bounce{0%,20%,50%,80%,100%{transform:translateY(0);}40%{transform:translateY(-10px);}60%{transform:translateY(-5px);}}
+
+@keyframes fadeInUp{from{opacity:0;transform:translateY(40px);}to{opacity:1;transform:translateY(0);}}
+@keyframes fadeInDown{from{opacity:0;transform:translateY(-20px);}to{opacity:1;transform:translateY(0);}}
+@keyframes fadeIn{from{opacity:0;}to{opacity:1;}}
+
+/* ===== SECTIONS ===== */
+.section{padding:120px 20px;position:relative;}
+.container{width:92%;max-width:1300px;margin:0 auto;}
+.section-header{text-align:center;margin-bottom:70px;position:relative;}
+.section-label{
+  display:inline-block;padding:6px 18px;border-radius:50px;
+  background:rgba(0,183,255,0.08);border:1px solid rgba(0,183,255,0.15);
+  color:var(--accent);font-size:12px;letter-spacing:3px;text-transform:uppercase;
+  margin-bottom:16px;
+}
+.section-title{
+  font-size:clamp(32px,4vw,52px);font-weight:900;color:#fff;line-height:1.2;
+}
+.section-title span{color:var(--accent);}
+.section-desc{color:var(--text2);font-size:17px;max-width:600px;margin:16px auto 0;line-height:1.8;}
+
+/* ===== PRODUCTS ===== */
+.products-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(360px,1fr));
+  gap:32px;
+}
+.product-card{
+  background:var(--card);
+  border:1px solid var(--border);
+  border-radius:var(--radius);
+  overflow:hidden;
+  position:relative;
+  transition:var(--transition);
+  display:flex;flex-direction:column;
+}
+.product-card::before{
+  content:'';position:absolute;inset:0;border-radius:var(--radius);
+  background:linear-gradient(135deg,rgba(0,183,255,0.03),transparent,rgba(255,215,0,0.02));
+  opacity:0;transition:opacity 0.5s ease;pointer-events:none;z-index:0;
+}
+.product-card:hover::before{opacity:1;}
+.product-card:hover{
+  transform:translateY(-12px) scale(1.01);
+  border-color:rgba(0,183,255,0.3);
+  box-shadow:var(--shadow),0 30px 80px rgba(0,0,0,0.5);
+}
+
+.card-badge{
+  position:absolute;top:18px;right:18px;z-index:10;
+  padding:6px 14px;border-radius:50px;font-size:11px;font-weight:800;letter-spacing:1px;
+}
+.badge-new{background:linear-gradient(135deg,var(--accent),var(--accent2));color:#000;}
+.badge-hot{background:linear-gradient(135deg,var(--gold),var(--gold2));color:#000;}
+.badge-sale{background:linear-gradient(135deg,#ff4757,#ff6b81);color:#fff;}
+
+.card-img-wrap{
+  position:relative;height:340px;background:linear-gradient(180deg,var(--bg2),var(--card));
+  display:flex;align-items:center;justify-content:center;overflow:hidden;
+  padding:30px;
+}
+.card-img{
+  max-height:100%;max-width:100%;object-fit:contain;
+  transition:transform 0.8s cubic-bezier(0.23,1,0.32,1);
+  filter:drop-shadow(0 20px 40px rgba(0,0,0,0.5));
+}
+.product-card:hover .card-img{transform:scale(1.08) rotate(-2deg);}
+.card-img-overlay{
+  position:absolute;inset:0;
+  background:radial-gradient(circle at 50% 50%,rgba(0,183,255,0.08),transparent 70%);
+  opacity:0;transition:opacity 0.5s ease;
+}
+.product-card:hover .card-img-overlay{opacity:1;}
+
+.card-body{padding:28px;position:relative;z-index:1;flex:1;display:flex;flex-direction:column;}
+.card-name{
+  font-size:26px;font-weight:900;color:#fff;margin-bottom:6px;
+  display:flex;align-items:center;gap:10px;
+}
+.card-name i{color:var(--accent);font-size:18px;}
+.card-spec{
+  color:var(--text2);font-size:14px;line-height:1.8;margin-bottom:18px;
+  min-height:50px;
+}
+.card-colors{display:flex;gap:8px;margin-bottom:18px;flex-wrap:wrap;}
+.color-opt{
+  padding:10px 16px;border-radius:var(--radius-sm);
+  background:var(--bg2);border:1px solid var(--border);
+  font-size:13px;font-weight:600;color:var(--text2);cursor:pointer;
+  transition:var(--transition);position:relative;overflow:hidden;
+  display:flex;align-items:center;gap:8px;
+}
+.color-opt::before{
+  content:'';position:absolute;inset:0;
+  background:linear-gradient(135deg,rgba(0,183,255,0.1),transparent);
+  opacity:0;transition:opacity 0.3s ease;
+}
+.color-opt:hover,.color-opt.active{
+  border-color:var(--accent);color:#fff;background:var(--bg3);
+}
+.color-opt.active::before{opacity:1;}
+.color-opt.active{box-shadow:0 0 20px rgba(0,183,255,0.15);}
+.color-dot{
+  width:10px;height:10px;border-radius:50%;border:2px solid rgba(255,255,255,0.2);
+}
+
+.card-price-row{
+  display:flex;align-items:center;justify-content:space-between;
+  margin-top:auto;padding-top:18px;border-top:1px solid var(--border);
+}
+.card-price{font-size:32px;font-weight:900;color:var(--accent);}
+.card-price span{font-size:14px;color:var(--text3);font-weight:400;margin-right:4px;}
+.card-old-price{
+  font-size:15px;color:var(--text3);text-decoration:line-through;margin-left:8px;
+}
+.card-btns{display:flex;gap:10px;margin-top:18px;}
+.btn{
+  flex:1;display:flex;align-items:center;justify-content:center;gap:8px;
+  padding:14px;border-radius:var(--radius-sm);font-size:14px;font-weight:700;
+  text-decoration:none;cursor:pointer;border:none;transition:var(--transition);
+  position:relative;overflow:hidden;
+}
+.btn-whatsapp{
+  background:linear-gradient(135deg,#25D366,#128C7E);color:#fff;
+  box-shadow:0 4px 20px rgba(37,211,102,0.25);
+}
+.btn-whatsapp:hover{transform:translateY(-2px);box-shadow:0 8px 30px rgba(37,211,102,0.4);}
+.btn-call{
+  background:var(--bg2);color:#fff;border:1px solid var(--border2);
+}
+.btn-call:hover{border-color:var(--accent);color:var(--accent);background:var(--bg3);}
+
+/* ===== FEATURES ===== */
+.features-grid{
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:24px;
+}
+.feature-card{
+  background:var(--card);border:1px solid var(--border);border-radius:var(--radius);
+  padding:40px 30px;text-align:center;transition:var(--transition);position:relative;overflow:hidden;
+}
+.feature-card::before{
+  content:'';position:absolute;inset:0;
+  background:radial-gradient(circle at 50% 0%,rgba(0,183,255,0.06),transparent 60%);
+  opacity:0;transition:opacity 0.5s ease;
+}
+.feature-card:hover::before{opacity:1;}
+.feature-card:hover{
+  transform:translateY(-8px);border-color:rgba(0,183,255,0.2);
+  box-shadow:var(--shadow);
+}
+.feature-icon{
+  width:70px;height:70px;border-radius:20px;
+  background:linear-gradient(135deg,rgba(0,183,255,0.1),rgba(255,215,0,0.05));
+  border:1px solid rgba(0,183,255,0.15);
+  display:flex;align-items:center;justify-content:center;margin:0 auto 20px;
+  font-size:26px;color:var(--accent);transition:var(--transition);
+}
+.feature-card:hover .feature-icon{
+  transform:scale(1.1) rotate(-5deg);
+  background:linear-gradient(135deg,rgba(0,183,255,0.2),rgba(255,215,0,0.1));
+}
+.feature-title{font-size:20px;font-weight:800;color:#fff;margin-bottom:10px;}
+.feature-desc{font-size:14px;color:var(--text2);line-height:1.8;}
+
+/* ===== WARRANTY SECTION ===== */
+.warranty-section{
+  background:linear-gradient(135deg,var(--bg2),var(--bg3));
+  border:1px solid var(--border);border-radius:var(--radius);
+  padding:60px;position:relative;overflow:hidden;
+}
+.warranty-section::before{
+  content:'';position:absolute;top:-50%;right:-20%;width:600px;height:600px;
+  background:radial-gradient(circle,rgba(0,183,255,0.05),transparent 60%);
+  pointer-events:none;
+}
+.warranty-grid{
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:40px;
+  position:relative;z-index:1;
+}
+.warranty-item{display:flex;gap:18px;align-items:flex-start;}
+.warranty-icon{
+  width:56px;height:56px;border-radius:16px;
+  background:linear-gradient(135deg,rgba(0,183,255,0.1),rgba(255,215,0,0.05));
+  border:1px solid rgba(0,183,255,0.15);
+  display:flex;align-items:center;justify-content:center;flex-shrink:0;
+  font-size:22px;color:var(--accent);
+}
+.warranty-text h3{font-size:20px;font-weight:800;color:#fff;margin-bottom:8px;}
+.warranty-text p{font-size:15px;color:var(--text2);line-height:1.8;}
+
+/* ===== FOOTER ===== */
+.footer{
+  background:var(--bg2);border-top:1px solid var(--border);padding:60px 20px 30px;
+}
+.footer-grid{
+  display:grid;grid-template-columns:2fr 1fr 1fr;gap:50px;max-width:1300px;margin:0 auto;
+}
+.footer-brand .logo{margin-bottom:16px;}
+.footer-brand p{color:var(--text3);font-size:15px;line-height:1.8;max-width:350px;}
+.footer-title{font-size:16px;font-weight:800;color:#fff;margin-bottom:20px;letter-spacing:1px;}
+.footer-links{list-style:none;}
+.footer-links li{margin-bottom:12px;}
+.footer-links a{
+  color:var(--text3);text-decoration:none;font-size:14px;transition:var(--transition);
+  display:flex;align-items:center;gap:8px;
+}
+.footer-links a:hover{color:var(--accent);padding-right:6px;}
+.footer-links a i{font-size:10px;color:var(--accent);}
+.footer-bottom{
+  max-width:1300px;margin:50px auto 0;padding-top:30px;
+  border-top:1px solid var(--border);text-align:center;
+  color:var(--text3);font-size:13px;letter-spacing:1px;
+}
+
+/* ===== ANIMATIONS ===== */
+.reveal{opacity:0;transform:translateY(50px);transition:all 0.8s cubic-bezier(0.23,1,0.32,1);}
+.reveal.active{opacity:1;transform:translateY(0);}
+.reveal-delay-1{transition-delay:0.1s;}
+.reveal-delay-2{transition-delay:0.2s;}
+.reveal-delay-3{transition-delay:0.3s;}
+.reveal-delay-4{transition-delay:0.4s;}
+
+/* ===== RESPONSIVE ===== */
+@media(max-width:768px){
+  .navbar{padding:14px 20px;}
+  .nav-links{display:none;}
+  .hero-stats{gap:24px;}
+  .products-grid{grid-template-columns:1fr;}
+  .footer-grid{grid-template-columns:1fr;gap:30px;}
+  .warranty-section{padding:40px 24px;}
+  .section{padding:80px 16px;}
+}
+
+/* ===== SCROLLBAR ===== */
+::-webkit-scrollbar{width:8px;}
+::-webkit-scrollbar-track{background:var(--bg);}
+::-webkit-scrollbar-thumb{background:var(--border2);border-radius:4px;}
+::-webkit-scrollbar-thumb:hover{background:var(--accent);}
+</style>
+</head>
+<body>
+
+<!-- LOADER -->
+<div class="loader" id="loader">
+  <div class="loader-ring"></div>
+  <div class="loader-text">جاري التحميل</div>
+</div>
+
+<!-- NAVBAR -->
+<nav class="navbar" id="navbar">
+  <div class="logo">Hossam <span>Samsung</span></div>
+  <ul class="nav-links">
+    <li><a href="#home">الرئيسية</a></li>
+    <li><a href="#products">الأجهزة</a></li>
+    <li><a href="#features">المميزات</a></li>
+    <li><a href="#warranty">الضمان</a></li>
+    <li><a href="#contact">تواصل معنا</a></li>
+    <li><a href="about.html">المطور</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="home">
+  <div class="hero-content">
+    <div class="hero-badge">
+      <i class="fas fa-crown"></i> أفضل أسعار في مصر
+    </div>
+    <h1>أجهزة سامسونج<br>الأصلية الفاخرة</h1>
+    <p class="hero-sub">
+      نقدم لك أحدث أجهزة سامسونج بأسعار تنافسية مميزة مع ضمان حقيقي وخدمة عملاء ممتازة على مدار الساعة
+    </p>
+    <div class="hero-stats">
+      <div class="stat">
+        <div class="stat-num">+5000</div>
+        <div class="stat-label">عميل سعيد</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num">100%</div>
+        <div class="stat-label">أصلي مضمون</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num">3شهور</div>
+        <div class="stat-label">ضمان المحل</div>
+      </div>
+    </div>
+    <a href="#products" class="hero-cta">
+      <i class="fas fa-mobile-alt"></i> تصفح الأجهزة
+    </a>
+  </div>
+  <div class="hero-scroll">
+    <span>اسحب للأسفل</span>
+    <i class="fas fa-chevron-down"></i>
+  </div>
+</section>
+
+<!-- PRODUCTS -->
+<section class="section" id="products">
+  <div class="container">
+    <div class="section-header reveal">
+      <div class="section-label">المتجر</div>
+      <h2 class="section-title">أحدث <span>الأجهزة</span></h2>
+      <p class="section-desc">اختر من مجموعتنا المختارة بعناية من أحدث أجهزة سامسونج الفاخرة</p>
+    </div>
+
+    <div class="products-grid">
+      
+      <!-- S24 Ultra -->
+      <div class="product-card reveal reveal-delay-1">
+        
+        <div class="card-img-wrap">
+          <img id="s24img" class="card-img" src="https://i.ibb.co/Xx9zKCk6/samsung-galaxy-s24-ultra-12gb-ram-256gb-titanium-black-1.jpg" alt="S24 Ultra">
+          <div class="card-img-overlay"></div>
+        </div>
+        <div class="card-body">
+          <div class="card-name"><i class="fas fa-mobile"></i> Galaxy S24 Ultra</div>
+          <div id="s24spec" class="card-spec">256GB / 12GB RAM • Dual SIM • Box + Cable</div>
+          <div class="card-colors">
+            <div class="color-opt active" onclick="setProduct('s24','48,500 جنيه','256GB / 12GB RAM • Dual SIM • Box + Cable','https://i.ibb.co/Xx9zKCk6/samsung-galaxy-s24-ultra-12gb-ram-256gb-titanium-black-1.jpg',this)">
+              <span class="color-dot" style="background:#2a2a2a;"></span> Titanium Black
+            </div>
+            <div class="color-opt" onclick="setProduct('s24','48,500 جنيه','256GB / 12GB RAM • Dual SIM • Box + Cable','https://i.ibb.co/LDMXNTxN/1655dd8281ff98b75c1502a7709058d359becc9e-4323ba4f92a8ce3479cdd29b02837b5247c16860e7812dd2faf18b97dac.jpg',this)">
+              <span class="color-dot" style="background:#888;"></span> Titanium Gray
+            </div>
+          </div>
+          <div class="card-price-row">
+            <div>
+              <div id="s24price" class="card-price">48,500 <span>جنيه</span></div>
+            </div>
+          </div>
+          <div class="card-btns">
+            <a class="btn btn-whatsapp" href="https://wa.me/201000000000"><i class="fab fa-whatsapp"></i> واتساب</a>
+            <a class="btn btn-call" href="tel:01000000000"><i class="fas fa-phone"></i> اتصال</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- S23 Ultra -->
+      <div class="product-card reveal reveal-delay-2">
+  
+        <div class="card-img-wrap">
+          <img id="s23img" class="card-img" src="https://i.ibb.co/1G3YCq16/ae-ar-galaxy-s23-s918-sm-s918bzkcmea-534848695.webp" alt="S23 Ultra">
+          <div class="card-img-overlay"></div>
+        </div>
+        <div class="card-body">
+          <div class="card-name"><i class="fas fa-mobile"></i> Galaxy S23 Ultra</div>
+          <div id="s23spec" class="card-spec">256GB / 12GB RAM • Dual SIM • Box + Cable</div>
+          <div class="card-colors">
+            <div class="color-opt active" onclick="setProduct('s23','38,000 جنيه','256GB / 12GB RAM • Dual SIM • Box + Cable','https://i.ibb.co/1G3YCq16/ae-ar-galaxy-s23-s918-sm-s918bzkcmea-534848695.webp',this)">
+              <span class="color-dot" style="background:#111;"></span> Phantom Black
+            </div>
+            <div class="color-opt" onclick="setProduct('s23','38,000 جنيه','256GB / 12GB RAM • Dual SIM • Box + Cable','https://i.ibb.co/KpcTjpxs/images-11.jpg',this)">
+              <span class="color-dot" style="background:#f0f0f0;"></span> Phantom White
+            </div>
+          </div>
+          <div class="card-price-row">
+            <div>
+              <div id="s23price" class="card-price">38,000 <span>جنيه</span></div>
+            </div>
+          </div>
+          <div class="card-btns">
+            <a class="btn btn-whatsapp" href="https://wa.me/201000000000"><i class="fab fa-whatsapp"></i> واتساب</a>
+            <a class="btn btn-call" href="tel:01000000000"><i class="fas fa-phone"></i> اتصال</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- S22 Ultra -->
+      <div class="product-card reveal reveal-delay-3">
+        
+        <div class="card-img-wrap">
+          <img id="s22img" class="card-img" src="https://i.ibb.co/Q3Q03932/810b1-GFtl9-L.jpg" alt="S22 Ultra">
+          <div class="card-img-overlay"></div>
+        </div>
+        <div class="card-body">
+          <div class="card-name"><i class="fas fa-mobile"></i> Galaxy S22 Ultra</div>
+          <div id="s22spec" class="card-spec">512GB / 12GB RAM • Dual SIM • Box + Cable</div>
+          <div class="card-colors">
+            <div class="color-opt active" onclick="setProduct('s22','31,500 جنيه','512GB / 12GB RAM • Dual SIM • Box + Cable','https://i.ibb.co/Q3Q03932/810b1-GFtl9-L.jpg',this)">
+              <span class="color-dot" style="background:#800020;"></span> Burgundy
+            </div>
+            <div class="color-opt" onclick="setProduct('s22','27,000 جنيه','512GB / 12GB RAM • 1SIM • بدون مشتملات','https://i.ibb.co/bRWzgwjz/images-12.jpg',this)">
+              <span class="color-dot" style="background:#1a1a1a;"></span> Black
+            </div>
+            <div class="color-opt" onclick="setProduct('s22','27,000 جنيه','256GB / 12GB RAM • 1SIM • Box + Cable','https://i.ibb.co/9mmd9Sft/images-13.jpg',this)">
+              <span class="color-dot" style="background:#fff;"></span> White
+            </div>
+          </div>
+          <div class="card-price-row">
+            <div>
+              <div id="s22price" class="card-price">31,500 <span>جنيه</span></div>
+            </div>
+          </div>
+          <div class="card-btns">
+            <a class="btn btn-whatsapp" href="https://wa.me/201000000000"><i class="fab fa-whatsapp"></i> واتساب</a>
+            <a class="btn btn-call" href="tel:01000000000"><i class="fas fa-phone"></i> اتصال</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- S22 Plus -->
+      <div class="product-card reveal reveal-delay-4">
+        <div class="card-img-wrap">
+          <img id="s22pimg" class="card-img" src="https://i.ibb.co/fY2fS34B/71-Z5a-Koh-H3-L-AC-UF350-350-QL80.jpg" alt="S22 Plus">
+          <div class="card-img-overlay"></div>
+        </div>
+        <div class="card-body">
+          <div class="card-name"><i class="fas fa-mobile"></i> Galaxy S22 Plus</div>
+          <div id="s22pspec" class="card-spec">128GB / 8+8GB RAM • Dual SIM • Box + Cable</div>
+          <div class="card-price-row">
+            <div>
+              <div id="s22pprice" class="card-price">19,500 <span>جنيه</span></div>
+            </div>
+          </div>
+          <div class="card-btns">
+            <a class="btn btn-whatsapp" href="https://wa.me/+201158555367"><i class="fab fa-whatsapp"></i> واتساب</a>
+            <a class="btn btn-call" href="tel:01158555367"><i class="fas fa-phone"></i> اتصال</a>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- FEATURES -->
+<section class="section" id="features" style="background:var(--bg2);">
+  <div class="container">
+    <div class="section-header reveal">
+      <div class="section-label">لماذا نحن</div>
+      <h2 class="section-title">مميزات <span>حصرية</span></h2>
+      <p class="section-desc">نضمن لك تجربة شراء ممتازة مع أفضل الخدمات والضمانات</p>
+    </div>
+    <div class="features-grid">
+      <div class="feature-card reveal reveal-delay-1">
+        <div class="feature-icon"><i class="fas fa-shield-alt"></i></div>
+        <div class="feature-title">ضمان مدى الحياة</div>
+        <div class="feature-desc">ضمان دائم على الضريبة مع كل جهاز تشتريه من متجرنا</div>
+      </div>
+      <div class="feature-card reveal reveal-delay-2">
+        <div class="feature-icon"><i class="fas fa-check-circle"></i></div>
+        <div class="feature-title">أجهزة زيرو ضريبة</div>
+        <div class="feature-desc">جميع الأجهزة أصلية 100% بدون أي ضريبة إضافية</div>
+      </div>
+      <div class="feature-card reveal reveal-delay-3">
+        <div class="feature-icon"><i class="fas fa-truck"></i></div>
+        <div class="feature-title">شحن سريع</div>
+        <div class="feature-desc">توصيل سريع وآمن لجميع المحافظات في أسرع وقت ممكن</div>
+      </div>
+    
+        
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WARRANTY -->
+<section class="section" id="warranty">
+  <div class="container">
+    <div class="section-header reveal">
+      <div class="section-label">الضمان</div>
+      <h2 class="section-title">ضمان <span>حقيقي</span> ومميز</h2>
+      <p class="section-desc">نقدم لك أفضل برامج الضمان لحماية جهازك وضمان راحة بالك</p>
+    </div>
+    <div class="warranty-section reveal">
+      <div class="warranty-grid">
+        <div class="warranty-item">
+          <div class="warranty-icon"><i class="fas fa-receipt"></i></div>
+          <div class="warranty-text">
+            <h3>زيرو ضريبة</h3>
+            <p>جميع الأجهزة المعروضة زيرو ضريبة بشكل كامل، مما يضمن لك أفضل سعر في السوق مع جودة أصلية مضمونة</p>
+          </div>
+        </div>
+        <div class="warranty-item">
+          <div class="warranty-icon"><i class="fas fa-infinity"></i></div>
+          <div class="warranty-text">
+            <h3>ضمان مدى الحياة</h3>
+            <p>ضمان دائم وغير محدود على الضريبة، نضمن لك استمرارية الجهاز بدون أي قلق على المستقبل</p>
+          </div>
+        </div>
+        <div class="warranty-item">
+          <div class="warranty-icon"><i class="fas fa-store"></i></div>
+          <div class="warranty-text">
+            <h3>ضمان المحل 3 شهور</h3>
+            <p>ضمان استخدام 3 شهور كاملة من المحل يغطي أي عطل مصنعي أو مشكلة في الأداء</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer" id="contact">
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <div class="logo">Hossam <span>Samsung</span></div>
+      <p>وجهتك الأولى لشراء أحدث أجهزة سامسونج الأصلية بأفضل الأسعار وضمان حقيقي في مصر.</p>
+    </div>
+    <div>
+      <div class="footer-title">روابط سريعة</div>
+      <ul class="footer-links">
+        <li><a href="#home"><i class="fas fa-chevron-left"></i> الرئيسية</a></li>
+        <li><a href="#products"><i class="fas fa-chevron-left"></i> الأجهزة</a></li>
+        <li><a href="#features"><i class="fas fa-chevron-left"></i> المميزات</a></li>
+        <li><a href="#warranty"><i class="fas fa-chevron-left"></i> الضمان</a></li>
+      </ul>
+    </div>
+    <div>
+      <div class="footer-title">تواصل معنا</div>
+      <ul class="footer-links">
+        <li><a href="https://wa.me/201158555367"><i class="fab fa-whatsapp"></i> واتساب</a></li>
+        <li><a href="tel:01158555367"><i class="fas fa-phone"></i> 01158555367</a></li>
+        <li><a href="tel:01106773106"><i class="fas fa-phone"></i> 01106773106</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+  © 2026 Hossam Samsung — جميع الحقوق محفوظة
+  <br>
+  Web developed by <a href="./about.html">Tomas Atef</a>
+</div>
+
+<script>
+// Loader
+window.addEventListener('load',()=>{
+  setTimeout(()=>{
+    document.getElementById('loader').classList.add('done');
+  },1500);
+});
+
+// Navbar scroll effect
+window.addEventListener('scroll',()=>{
+  const nav=document.getElementById('navbar');
+  if(window.scrollY>50) nav.classList.add('scrolled');
+  else nav.classList.remove('scrolled');
+});
+
+// Product switcher
+function setProduct(id,price,spec,img,el){
+  document.getElementById(id+'price').innerText=price.split(' ')[0]+' جنيه';
+  document.getElementById(id+'img').src=img;
+  document.getElementById(id+'spec').innerText=spec;
+  
+  const parent=el.parentElement;
+  const items=parent.querySelectorAll('.color-opt');
+  items.forEach(i=>i.classList.remove('active'));
+  el.classList.add('active');
+}
+
+// Scroll reveal animation
+const revealElements=document.querySelectorAll('.reveal');
+const revealObserver=new IntersectionObserver((entries)=>{
+  entries.forEach(entry=>{
+    if(entry.isIntersecting){
+      entry.target.classList.add('active');
+      revealObserver.unobserve(entry.target);
+    }
+  });
+},{threshold:0.1,rootMargin:'0px 0px -50px 0px'});
+revealElements.forEach(el=>revealObserver.observe(el));
+</script>
+
+</body>
+</html>
