@@ -418,7 +418,7 @@ body{
 </div>
 
 <!-- NAVBAR -->
-<nav class="navbar" id="navbar">
+<<nav class="navbar" id="navbar">
   <div class="logo">Hossam <span>Samsung</span></div>
   <ul class="nav-links">
     <li><a href="#home">الرئيسية</a></li>
@@ -544,7 +544,7 @@ body{
 </section>
 
 <!-- FOOTER -->
-<footer class="footer" id="contact">
+<<footer class="footer" id="contact">
   <div class="footer-grid">
     <div class="footer-brand">
       <div class="logo">Hossam <span>Samsung</span></div>
@@ -632,9 +632,23 @@ function loadProducts(){
       return;
     }
     
-    let delay = 1;
+    // Convert to array and sort by displayOrder (fallback to createdAt or 999)
+    let products = [];
     snap.forEach(doc => {
-      const p = doc.data();
+      products.push({id: doc.id, data: doc.data()});
+    });
+    
+    // Sort: displayOrder ascending, with fallback
+    products.sort((a, b) => {
+      const orderA = a.data.displayOrder || 999;
+      const orderB = b.data.displayOrder || 999;
+      return orderA - orderB;
+    });
+    
+    let delay = 1;
+    products.forEach(product => {
+      const p = product.data;
+      const docId = product.id;
       const hasColors = p.colors && p.colors.length > 0;
       
       let colorsHTML = '';
@@ -642,7 +656,7 @@ function loadProducts(){
         colorsHTML = `<div class="card-colors">`;
         p.colors.forEach((c, i) => {
           colorsHTML += `
-            <div class="color-opt ${i===0?'active':''}" onclick="setProduct('${doc.id}','${c.spec}','${c.image}',this)">
+            <div class="color-opt ${i===0?'active':''}" onclick="setProduct('${docId}','${c.spec}','${c.image}',this)">
               <span class="color-dot" style="background:${c.colorHex || '#666'};"></span> ${c.colorName}
             </div>
           `;
@@ -653,12 +667,12 @@ function loadProducts(){
       container.innerHTML += `
         <div class="product-card reveal reveal-delay-${Math.min(delay,4)}">
           <div class="card-img-wrap">
-            <img id="img-${doc.id}" class="card-img" src="${p.image || p.colors?.[0]?.image || 'https://via.placeholder.com/300'}" alt="${p.name}">
+            <img id="img-${docId}" class="card-img" src="${p.image || p.colors?.[0]?.image || 'https://via.placeholder.com/300'}" alt="${p.name}">
             <div class="card-img-overlay"></div>
           </div>
           <div class="card-body">
             <div class="card-name"><i class="fas fa-mobile"></i> ${p.name}</div>
-            <div id="spec-${doc.id}" class="card-spec">${p.spec || p.colors?.[0]?.spec || ''}</div>
+            <div id="spec-${docId}" class="card-spec">${p.spec || p.colors?.[0]?.spec || ''}</div>
             ${colorsHTML}
             <div class="card-btns">
               <a class="btn btn-whatsapp" href="https://wa.me/201158555367?text=أهلاً، أنا مهتم بـ ${p.name}"><i class="fab fa-whatsapp"></i> واتساب</a>
